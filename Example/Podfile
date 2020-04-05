@@ -3,5 +3,5 @@ platform :ios, '9.0'
 target 'NativeUIExample' do
   use_frameworks!
 
-  pod 'NativeUI/Alert', '0.0.3'
+  pod 'NativeUI', :path => '../'
 end

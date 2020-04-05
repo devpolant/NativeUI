@@ -36,7 +36,23 @@ final class ViewController: UIViewController {
             present(alert, animated: true)
             
         case .custom:
-            break
+            let cancelAction = Alert.Action(title: "Cancel", style: .primary)
+            let confirmAction = Alert.Action(title: "Confirm", style: .default)
+            
+            let customView = CustomView()
+            customView.translatesAutoresizingMaskIntoConstraints = false
+            customView.imageView.backgroundColor = .orange
+            customView.titleLabel.text = "Some text"
+            customView.subtitleLabel.text = "Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua."
+            
+            let viewModel = Alert(
+                title: "Your Title",
+                message: nil,
+                contentView: customView,
+                actions: [cancelAction, confirmAction]
+            )
+            let alert = AlertViewController(viewModel: viewModel)
+            present(alert, animated: true)
         }
     }
 }
