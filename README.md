@@ -32,7 +32,7 @@ Available subspecs:
 - `Utils`
 - `Alert`
 
-## Usage
+## Alert
 
 <img src="https://github.com/AntonPoltoratskyi/NativeUI/blob/master/Example/Demo/default.gif" width="250" /> <img src="https://github.com/AntonPoltoratskyi/NativeUI/blob/master/Example/Demo/custom.gif" width="250" />
 
