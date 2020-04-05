@@ -1,3 +1,5 @@
-DerivedData
-NativeUI.xcodeproj/project.xcworkspace
-NativeUI.xcodeproj/xcuserdata
+**/DerivedData
+**/project.xcworkspace
+**/xcuserdata
+**/Pods
+**/*.xcworkspace

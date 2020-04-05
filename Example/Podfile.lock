@@ -1,0 +1,16 @@
+PODS:
+  - NativeUI (0.0.1)
+
+DEPENDENCIES:
+  - NativeUI (from `../`)
+
+EXTERNAL SOURCES:
+  NativeUI:
+    :path: "../"
+
+SPEC CHECKSUMS:
+  NativeUI: 6eb610f100367634295be050ee96822db4ea235a
+
+PODFILE CHECKSUM: bb46d7bf1ae3b119e00a9331a12cd0a4b5cac170
+
+COCOAPODS: 1.9.1
