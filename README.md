@@ -32,11 +32,74 @@ Available subspecs:
 - `Utils`
 - `Alert`
 
-
 ## Usage
 
-![Demo](https://github.com/AntonPoltoratskyi/NativeUI/blob/master/Example/Demo/default.gif)
-![Demo](https://github.com/AntonPoltoratskyi/NativeUI/blob/master/Example/Demo/custom.gif)
+<img src="https://github.com/AntonPoltoratskyi/NativeUI/blob/master/Example/Demo/default.gif" width="250" /> <img src="https://github.com/AntonPoltoratskyi/NativeUI/blob/master/Example/Demo/custom.gif" width="250" />
+
+**`AlertViewController` is a customizable replacement for native `UIAlertController`.**
+
+Sometimes we need to set NSAttributedString into native alert, but public API doesn't allow it. As a workaroud we could use private API, but in general we should avoid using it.
+
+`AlertViewController` looks exactly like native `UIAlertController`, but very configurable.
+
+### Configuration
+
+1. Default initialization with title, message as `String`.
+
+```swift
+let cancelAction = Alert.Action(title: "Cancel", style: .primary)
+let confirmAction = Alert.Action(title: "Confirm", style: .default)
+            
+let viewModel = Alert(
+    title: "Your Title",
+    titleFont: ... // your custom title font
+    message: "Your Message",
+    messageFont: ... // your custom message font
+    actions: [cancelAction, confirmAction]
+)
+let alert = AlertViewController(viewModel: viewModel)
+present(alert, animated: true)
+```
+
+2. Default initialization with title, message as `NSAttributedString`
+
+```swift
+let cancelAction = Alert.Action(title: "Cancel", style: .primary)
+let confirmAction = Alert.Action(title: "Confirm", style: .default)
+            
+let viewModel = Alert(
+    title: ... // your title (NSAttributedString)
+    message: ... // your message (NSAttributedString)
+    actions: [cancelAction, confirmAction]
+)
+let alert = AlertViewController(viewModel: viewModel)
+present(alert, animated: true)
+```
+
+3. Initialization with title, message and custom `UIView` object as content view to implement complex layout.
+
+
+```swift
+let cancelAction = Alert.Action(title: "Cancel", style: .primary)
+let confirmAction = Alert.Action(title: "Confirm", style: .default)
+
+let customView = CustomView()
+customView.translatesAutoresizingMaskIntoConstraints = false
+customView.imageView.backgroundColor = .orange
+customView.titleLabel.text = "Some text"
+customView.subtitleLabel.text = "Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua."
+
+let viewModel = Alert(
+    title: "Your Title",
+    message: nil,
+    contentView: customView,
+    actions: [cancelAction, confirmAction]
+)
+let alert = AlertViewController(viewModel: viewModel)
+present(alert, animated: true)
+```
+
+See [Alert.swift](https://github.com/AntonPoltoratskyi/NativeUI/blob/master/NativeUI/Sources/Alert/Alert.swift) for more details.
 
 ## Author
 
