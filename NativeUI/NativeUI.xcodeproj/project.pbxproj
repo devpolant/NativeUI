@@ -8,12 +8,24 @@
 
 /* Begin PBXBuildFile section */
 		3AB073C22439FF7F0092DF66 /* NativeUI.h in Headers */ = {isa = PBXBuildFile; fileRef = 3AB073C02439FF7F0092DF66 /* NativeUI.h */; settings = {ATTRIBUTES = (Public, ); }; };
+		3AB073CC243A01140092DF66 /* SelectionFeedbackGenerator.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3AB073CB243A01140092DF66 /* SelectionFeedbackGenerator.swift */; };
+		3AB073D2243A017A0092DF66 /* AlertPresentationAnimator.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3AB073CD243A017A0092DF66 /* AlertPresentationAnimator.swift */; };
+		3AB073D3243A017A0092DF66 /* Alert.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3AB073CE243A017A0092DF66 /* Alert.swift */; };
+		3AB073D4243A017A0092DF66 /* AlertActionSequenceView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3AB073CF243A017A0092DF66 /* AlertActionSequenceView.swift */; };
+		3AB073D5243A017A0092DF66 /* AlertView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3AB073D0243A017A0092DF66 /* AlertView.swift */; };
+		3AB073D6243A017A0092DF66 /* AlertViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3AB073D1243A017A0092DF66 /* AlertViewController.swift */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
 		3AB073BD2439FF7F0092DF66 /* NativeUI.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; includeInIndex = 0; path = NativeUI.framework; sourceTree = BUILT_PRODUCTS_DIR; };
 		3AB073C02439FF7F0092DF66 /* NativeUI.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = NativeUI.h; sourceTree = "<group>"; };
 		3AB073C12439FF7F0092DF66 /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
+		3AB073CB243A01140092DF66 /* SelectionFeedbackGenerator.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SelectionFeedbackGenerator.swift; sourceTree = "<group>"; };
+		3AB073CD243A017A0092DF66 /* AlertPresentationAnimator.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = AlertPresentationAnimator.swift; sourceTree = "<group>"; };
+		3AB073CE243A017A0092DF66 /* Alert.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = Alert.swift; sourceTree = "<group>"; };
+		3AB073CF243A017A0092DF66 /* AlertActionSequenceView.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = AlertActionSequenceView.swift; sourceTree = "<group>"; };
+		3AB073D0243A017A0092DF66 /* AlertView.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = AlertView.swift; sourceTree = "<group>"; };
+		3AB073D1243A017A0092DF66 /* AlertViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = AlertViewController.swift; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -46,10 +58,40 @@
 		3AB073BF2439FF7F0092DF66 /* NativeUI */ = {
 			isa = PBXGroup;
 			children = (
+				3AB073C8243A005D0092DF66 /* Sources */,
 				3AB073C02439FF7F0092DF66 /* NativeUI.h */,
 				3AB073C12439FF7F0092DF66 /* Info.plist */,
 			);
 			path = NativeUI;
+			sourceTree = "<group>";
+		};
+		3AB073C8243A005D0092DF66 /* Sources */ = {
+			isa = PBXGroup;
+			children = (
+				3AB073CA243A010A0092DF66 /* Utils */,
+				3AB073C9243A006D0092DF66 /* Alert */,
+			);
+			path = Sources;
+			sourceTree = "<group>";
+		};
+		3AB073C9243A006D0092DF66 /* Alert */ = {
+			isa = PBXGroup;
+			children = (
+				3AB073CE243A017A0092DF66 /* Alert.swift */,
+				3AB073D1243A017A0092DF66 /* AlertViewController.swift */,
+				3AB073D0243A017A0092DF66 /* AlertView.swift */,
+				3AB073CD243A017A0092DF66 /* AlertPresentationAnimator.swift */,
+				3AB073CF243A017A0092DF66 /* AlertActionSequenceView.swift */,
+			);
+			path = Alert;
+			sourceTree = "<group>";
+		};
+		3AB073CA243A010A0092DF66 /* Utils */ = {
+			isa = PBXGroup;
+			children = (
+				3AB073CB243A01140092DF66 /* SelectionFeedbackGenerator.swift */,
+			);
+			path = Utils;
 			sourceTree = "<group>";
 		};
 /* End PBXGroup section */
@@ -95,6 +137,7 @@
 				TargetAttributes = {
 					3AB073BC2439FF7F0092DF66 = {
 						CreatedOnToolsVersion = 11.4;
+						LastSwiftMigration = 1140;
 					};
 				};
 			};
@@ -131,6 +174,12 @@
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				3AB073D5243A017A0092DF66 /* AlertView.swift in Sources */,
+				3AB073D6243A017A0092DF66 /* AlertViewController.swift in Sources */,
+				3AB073D3243A017A0092DF66 /* Alert.swift in Sources */,
+				3AB073CC243A01140092DF66 /* SelectionFeedbackGenerator.swift in Sources */,
+				3AB073D4243A017A0092DF66 /* AlertActionSequenceView.swift in Sources */,
+				3AB073D2243A017A0092DF66 /* AlertPresentationAnimator.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -260,6 +309,7 @@
 		3AB073C62439FF7F0092DF66 /* Debug */ = {
 			isa = XCBuildConfiguration;
 			buildSettings = {
+				CLANG_ENABLE_MODULES = YES;
 				CODE_SIGN_STYLE = Automatic;
 				DEFINES_MODULE = YES;
 				DYLIB_COMPATIBILITY_VERSION = 1;
@@ -275,6 +325,7 @@
 				PRODUCT_BUNDLE_IDENTIFIER = com.polant.NativeUI;
 				PRODUCT_NAME = "$(TARGET_NAME:c99extidentifier)";
 				SKIP_INSTALL = YES;
+				SWIFT_OPTIMIZATION_LEVEL = "-Onone";
 				SWIFT_VERSION = 5.0;
 				TARGETED_DEVICE_FAMILY = "1,2";
 			};
@@ -283,6 +334,7 @@
 		3AB073C72439FF7F0092DF66 /* Release */ = {
 			isa = XCBuildConfiguration;
 			buildSettings = {
+				CLANG_ENABLE_MODULES = YES;
 				CODE_SIGN_STYLE = Automatic;
 				DEFINES_MODULE = YES;
 				DYLIB_COMPATIBILITY_VERSION = 1;
