@@ -28,13 +28,33 @@ public struct Alert {
         }
     }
     
-    public let title: String?
-    public let titleFont: UIFont
-    public let message: String?
-    public let messageFont: UIFont
+    public enum Text {
+        case string(String, UIFont)
+        case attributedString(NSAttributedString)
+    }
+    
+    /// default font: `UIFont.systemFont(ofSize: 17, weight: .semibold)`
+    public let title: Text?
+    /// default font: `UIFont.systemFont(ofSize: 13, weight: .regular)`
+    public let message: Text?
+    /// Custom view to use instead of message or in addition to message.
     public let contentView: UIView?
+    
     public let tintColor: UIColor?
+    
     public let actions: [Action]
+    
+    public init(title: Text?,
+                message: Text?,
+                contentView: UIView? = nil,
+                tintColor: UIColor? = nil,
+                actions: [Action]) {
+        self.title = title
+        self.message = message
+        self.contentView = contentView
+        self.tintColor = tintColor
+        self.actions = actions
+    }
     
     public init(title: String?,
                 titleFont: UIFont = UIFont.systemFont(ofSize: 17, weight: .semibold),
@@ -43,12 +63,22 @@ public struct Alert {
                 contentView: UIView? = nil,
                 tintColor: UIColor? = nil,
                 actions: [Action]) {
-        self.title = title
-        self.titleFont = titleFont
-        self.message = message
-        self.messageFont = messageFont
-        self.contentView = contentView
-        self.tintColor = tintColor
-        self.actions = actions
+        self.init(title: title.map { .string($0, titleFont) },
+                  message: message.map { .string($0, messageFont) },
+                  contentView: contentView,
+                  tintColor: tintColor,
+                  actions: actions)
+    }
+    
+    public init(title: NSAttributedString?,
+                message: NSAttributedString?,
+                contentView: UIView? = nil,
+                tintColor: UIColor? = nil,
+                actions: [Action]) {
+        self.init(title: title.map { .attributedString($0) },
+                  message: message.map { .attributedString($0) },
+                  contentView: contentView,
+                  tintColor: tintColor,
+                  actions: actions)
     }
 }

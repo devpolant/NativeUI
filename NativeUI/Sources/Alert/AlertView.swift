@@ -156,12 +156,26 @@ final class AlertView: UIView {
     func setup(viewModel: Alert) {
         self.viewModel = viewModel
         
-        titleLabel.text = viewModel.title
-        titleLabel.font = viewModel.titleFont
+        switch viewModel.title {
+        case let .string(text, font):
+            titleLabel.text = text
+            titleLabel.font = font
+        case let .attributedString(attributedText):
+            titleLabel.attributedText = attributedText
+        case nil:
+            titleLabel.text = nil
+        }
         titleLabel.isHidden = viewModel.title == nil
         
-        messageLabel.text = viewModel.message
-        messageLabel.font = viewModel.messageFont
+        switch viewModel.message {
+        case let .string(text, font):
+            messageLabel.text = text
+            messageLabel.font = font
+        case let .attributedString(attributedText):
+            messageLabel.attributedText = attributedText
+        case nil:
+            messageLabel.text = nil
+        }
         messageLabel.isHidden = viewModel.message == nil
         
         if let contentView = viewModel.contentView {
