@@ -31,11 +31,11 @@ Pod::Spec.new do |s|
   end
 
   s.subspec 'Utils' do |ss|
-    s.source_files    = "NativeUI/Sources/Utils/**/*.{swift}"
+    ss.source_files    = "NativeUI/Sources/Utils/**/*.{swift}"
   end
   
   s.subspec 'Alert' do |ss|
-    s.source_files    = "NativeUI/Sources/Alert/**/*.{swift}"
+    ss.source_files    = "NativeUI/Sources/Alert/**/*.{swift}"
     ss.dependency 'NativeUI/Utils'
   end
 
