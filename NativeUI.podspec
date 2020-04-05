@@ -1,6 +1,6 @@
 Pod::Spec.new do |s|
   s.name          = "NativeUI"
-  s.version       = "0.0.1"
+  s.version       = "0.0.2"
   s.summary       = "Library that includes customizable replacements for native UIKit components"
 
   s.description   = <<-DESC
@@ -11,19 +11,32 @@ Pod::Spec.new do |s|
                       DESC
 
   s.homepage      = "https://github.com/AntonPoltoratskyi/NativeUI"
-
-  # spec.screenshots  = "www.example.com/screenshots_1.gif", "www.example.com/screenshots_2.gif"
-
   s.license       = { :type => "MIT", :file => "LICENSE" }
   s.author        = "Anton Poltoratskyi"
+
   s.platform      = :ios, "9.0"
 
   s.source        = { :git => "https://github.com/AntonPoltoratskyi/NativeUI.git", :tag => "#{s.version}" }
-  s.source_files  = "NativeUI/Sources/**/*.{swift}"
-
+  
   s.frameworks    = "Foundation", "UIKit"
+
   s.requires_arc  = true
 
   s.swift_version = "5.0"
+
+  s.default_subspec   = 'Core'
+
+  s.subspec 'Core' do |ss|
+    ss.dependency 'NativeUI/Alert'
+  end
+
+  s.subspec 'Utils' do |ss|
+    s.source_files    = "NativeUI/Sources/Utils/**/*.{swift}"
+  end
   
+  s.subspec 'Alert' do |ss|
+    s.source_files    = "NativeUI/Sources/Alert/**/*.{swift}"
+    ss.dependency 'NativeUI/Utils'
+  end
+
 end
