@@ -20,8 +20,7 @@ target 'MyApp' do
 end
 ```
 
-Available subspecs:
-- `Alert`
+If you don't need to connect all UI components you may use subspecs like:
 
 ```ruby
 target 'MyApp' do
@@ -29,10 +28,15 @@ target 'MyApp' do
 end
 ```
 
+Available subspecs:
+- `Utils`
+- `Alert`
+
+
 ## Usage
 
-
-
+![Demo](https://github.com/AntonPoltoratskyi/NativeUI/blob/master/Example/Demo/default.gif)
+![Demo](https://github.com/AntonPoltoratskyi/NativeUI/blob/master/Example/Demo/custom.gif)
 
 ## Author
 
