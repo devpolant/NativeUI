@@ -9,10 +9,34 @@
 import UIKit
 import NativeUI
 
-class ViewController: UIViewController {
-
-    override func viewDidLoad() {
-        super.viewDidLoad()
-        // Do any additional setup after loading the view.
+final class ViewController: UIViewController {
+    
+    enum Appearance: Int {
+        case `default`  = 0
+        case custom     = 1
+    }
+    
+    @IBOutlet private var segmentedControl: UISegmentedControl!
+    
+    @IBAction private func showAlert() {
+        guard let appearance = Appearance(rawValue: segmentedControl.selectedSegmentIndex) else {
+            return
+        }
+        switch appearance {
+        case .default:
+            let cancelAction = Alert.Action(title: "Cancel", style: .primary)
+            let confirmAction = Alert.Action(title: "Confirm", style: .default)
+            
+            let viewModel = Alert(
+                title: "Your Title",
+                message: "Your Message",
+                actions: [cancelAction, confirmAction]
+            )
+            let alert = AlertViewController(viewModel: viewModel)
+            present(alert, animated: true)
+            
+        case .custom:
+            break
+        }
     }
 }
