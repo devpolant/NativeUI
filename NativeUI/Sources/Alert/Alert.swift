@@ -52,14 +52,14 @@ public struct Alert {
     
     public let disabledTintColor: UIColor?
     
-    public let actions: [Action]
+    public private(set) var actions: [Action]
     
     public init(title: Text?,
                 message: Text?,
                 contentView: UIView? = nil,
                 tintColor: UIColor? = nil,
                 disabledTintColor: UIColor? = nil,
-                actions: [Action]) {
+                actions: [Action] = []) {
         self.title = title
         self.message = message
         self.contentView = contentView
@@ -75,7 +75,7 @@ public struct Alert {
                 contentView: UIView? = nil,
                 tintColor: UIColor? = nil,
                 disabledTintColor: UIColor? = nil,
-                actions: [Action]) {
+                actions: [Action] = []) {
         self.init(title: title.map { .string($0, titleFont) },
                   message: message.map { .string($0, messageFont) },
                   contentView: contentView,
@@ -89,12 +89,16 @@ public struct Alert {
                 contentView: UIView? = nil,
                 tintColor: UIColor? = nil,
                 disabledTintColor: UIColor? = nil,
-                actions: [Action]) {
+                actions: [Action] = []) {
         self.init(title: title.map { .attributedString($0) },
                   message: message.map { .attributedString($0) },
                   contentView: contentView,
                   tintColor: tintColor,
                   disabledTintColor: disabledTintColor,
                   actions: actions)
+    }
+    
+    mutating func addAction(_ action: Action) {
+        actions.append(action)
     }
 }

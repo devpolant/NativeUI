@@ -10,7 +10,9 @@ import UIKit
 
 public final class AlertViewController: UIViewController, AlertViewDelegate {
     
-    private let viewModel: Alert
+    public var shouldDismissAutomatically: Bool = true
+    
+    private var viewModel: Alert
     
     // MARK: - Subviews
     
@@ -41,6 +43,12 @@ public final class AlertViewController: UIViewController, AlertViewDelegate {
         setupAppearance()
         setupLayout()
         setupViewModel()
+    }
+    
+    // MARK: - Public Interface
+    
+    public func addAction(_ action: Alert.Action) {
+        viewModel.addAction(action)
     }
     
     // MARK: - UI Setup
@@ -98,7 +106,9 @@ extension AlertViewController {
             let action = viewModel.actions[index]
             action.handler?(action)
         }
-        dismiss(animated: true, completion: nil)
+        if shouldDismissAutomatically {
+            dismiss(animated: true, completion: nil)
+        }
     }
 }
 

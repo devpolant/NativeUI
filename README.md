@@ -16,7 +16,7 @@
 
 ```ruby
 target 'MyApp' do
-  pod 'NativeUI', '~> 1.0'
+  pod 'NativeUI', '~> 1.1'
 end
 ```
 
@@ -24,7 +24,7 @@ If you don't need to connect all UI components you may use subspecs like:
 
 ```ruby
 target 'MyApp' do
-  pod 'NativeUI/Alert', '~> 1.0'
+  pod 'NativeUI/Alert', '~> 1.1'
 end
 ```
 
@@ -100,6 +100,36 @@ present(alert, animated: true)
 ```
 
 See [Alert.swift](https://github.com/AntonPoltoratskyi/NativeUI/blob/master/NativeUI/Sources/Alert/Alert.swift) for more details.
+
+### Edge cases
+
+When you need to present few alerts in a row you should set `shouldDismissAutomatically` flag to `false` and add action AFTER view controller initialization to be able to capture alert instance in action handler's closure.
+
+```swift
+
+let viewModel = Alert(
+    title: "Your Title",
+    message: "Your Message"
+)
+let alert = AlertViewController(viewModel: viewModel)
+alert.shouldDismissAutomatically = false
+
+let cancelAction = Alert.Action(title: "Cancel", style: .primary) { [weak alert] _ in
+    alert?.dismiss(animated: true) {
+        // present something else
+    }
+}
+alert.addAction(cancelAction)
+
+let confirmAction = Alert.Action(title: "Confirm", style: .default) { [weak alert] _ in
+    alert?.dismiss(animated: true) {
+        // present something else
+    }
+}
+alert.addAction(confirmAction)
+
+present(alert, animated: true)
+```
 
 ## Author
 

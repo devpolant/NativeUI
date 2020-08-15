@@ -1,11 +1,11 @@
 PODS:
-  - NativeUI (1.0.1):
-    - NativeUI/Core (= 1.0.1)
-  - NativeUI/Alert (1.0.1):
+  - NativeUI (1.1.0):
+    - NativeUI/Core (= 1.1.0)
+  - NativeUI/Alert (1.1.0):
     - NativeUI/Utils
-  - NativeUI/Core (1.0.1):
+  - NativeUI/Core (1.1.0):
     - NativeUI/Alert
-  - NativeUI/Utils (1.0.1)
+  - NativeUI/Utils (1.1.0)
 
 DEPENDENCIES:
   - NativeUI (from `../`)
@@ -15,7 +15,7 @@ EXTERNAL SOURCES:
     :path: "../"
 
 SPEC CHECKSUMS:
-  NativeUI: 6de137806356923678e5b124502c00246ed8a14a
+  NativeUI: d82fff2460d835a9fbd645902462e2b1d9573507
 
 PODFILE CHECKSUM: bb46d7bf1ae3b119e00a9331a12cd0a4b5cac170
 
