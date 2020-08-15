@@ -16,7 +16,7 @@
 
 ```ruby
 target 'MyApp' do
-  pod 'NativeUI', '~> 1.0'
+  pod 'NativeUI', '~> 1.1'
 end
 ```
 
@@ -24,7 +24,7 @@ If you don't need to connect all UI components you may use subspecs like:
 
 ```ruby
 target 'MyApp' do
-  pod 'NativeUI/Alert', '~> 1.0'
+  pod 'NativeUI/Alert', '~> 1.1'
 end
 ```
 
