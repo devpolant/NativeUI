@@ -193,6 +193,7 @@ final class AlertView: UIView {
         
         let actionsViewModel = AlertActionSequenceViewModel(
             actions: viewModel.actions,
+            disabledTintColor: viewModel.disabledTintColor,
             separatorColor: separatorColor,
             separatorWidth: Layout.separatorThickness
         )

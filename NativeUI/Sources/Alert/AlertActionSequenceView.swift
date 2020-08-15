@@ -14,6 +14,7 @@ protocol AlertActionSequenceViewDelegate: AnyObject {
 
 struct AlertActionSequenceViewModel {
     let actions: [Alert.Action]
+    let disabledTintColor: UIColor?
     let separatorColor: UIColor
     let separatorWidth: CGFloat
 }
@@ -33,6 +34,8 @@ final class AlertActionSequenceView: UIControl {
                 backgroundColor = isHighlighted ? UIColor.lightGray.withAlphaComponent(0.2) : .clear
             }
         }
+        
+        var isEnabled: Bool = true
         
         private(set) lazy var titleLabel: UILabel = {
             let label = UILabel()
@@ -104,7 +107,7 @@ final class AlertActionSequenceView: UIControl {
         }
         
         if let action = viewModel.actions.first {
-            let actionView = makeActionView(for: action)
+            let actionView = makeActionView(for: action, disabledTintColor: viewModel.disabledTintColor)
             stackView.addArrangedSubview(actionView)
         }
         
@@ -112,7 +115,7 @@ final class AlertActionSequenceView: UIControl {
             let separator = makeButtonSeparatorView(viewModel: viewModel)
             stackView.addArrangedSubview(separator)
             
-            let actionView = makeActionView(for: action)
+            let actionView = makeActionView(for: action, disabledTintColor: viewModel.disabledTintColor)
             stackView.addArrangedSubview(actionView)
             
             if let firstActionView = stackView.arrangedSubviews.first(where: { $0 !== actionView }) {
@@ -121,25 +124,37 @@ final class AlertActionSequenceView: UIControl {
         }
     }
     
-    private func makeActionView(for action: Alert.Action) -> ActionView {
+    private func makeActionView(for action: Alert.Action, disabledTintColor: UIColor?) -> ActionView {
         let actionView = ActionView()
         actionView.translatesAutoresizingMaskIntoConstraints = false
         
+        updateAppearance(for: actionView, action: action, disabledTintColor: disabledTintColor)
+        
+        action.actionStateHandler = { [weak actionView, weak action, weak self] isEnabled in
+            guard let actionView = actionView, let action = action else { return }
+            self?.updateAppearance(for: actionView, action: action, disabledTintColor: disabledTintColor)
+        }
+        
+        return actionView
+    }
+    
+    private func updateAppearance(for actionView: ActionView, action: Alert.Action, disabledTintColor: UIColor?) {
+        actionView.isEnabled = action.isEnabled
         actionView.titleLabel.text = action.title
+        
+        let disabledTintColor = disabledTintColor ?? UIColor(white: 0.48, alpha: 0.8)
         
         switch action.style {
         case .default:
             actionView.titleLabel.font = UIFont.systemFont(ofSize: 17, weight: .regular)
-            actionView.titleLabel.textColor = tintColor
+            actionView.titleLabel.textColor = action.isEnabled ? tintColor : disabledTintColor
         case .primary:
             actionView.titleLabel.font = UIFont.systemFont(ofSize: 17, weight: .semibold)
-            actionView.titleLabel.textColor = tintColor
+            actionView.titleLabel.textColor = action.isEnabled ? tintColor : disabledTintColor
         case let .custom(font, textColor):
             actionView.titleLabel.font = font
-            actionView.titleLabel.textColor = textColor
+            actionView.titleLabel.textColor = action.isEnabled ? textColor : disabledTintColor
         }
-        
-        return actionView
     }
     
     private func makeButtonSeparatorView(viewModel: AlertActionSequenceViewModel) -> UIView {
@@ -189,7 +204,7 @@ final class AlertActionSequenceView: UIControl {
             guard let actionViewFrame = actionView.superview?.convert(actionView.frame, to: self) else {
                 continue
             }
-            let isHighlighted = actionViewFrame.contains(point)
+            let isHighlighted = actionViewFrame.contains(point) && actionView.isEnabled
             actionView.isHighlighted = isHighlighted
             
             if isHighlighted, highlightedView != actionView {
@@ -226,7 +241,8 @@ final class AlertActionSequenceView: UIControl {
     
     @objc private func handleTap(on actionView: ActionView) {
         let index = stackView.arrangedSubviews
-            .filter { $0 is ActionView }
+            .compactMap { $0 as? ActionView }
+            .filter { $0.isEnabled }
             .firstIndex(where: { $0 === actionView })
         
         if let index = index {

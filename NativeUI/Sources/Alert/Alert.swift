@@ -9,7 +9,7 @@
 import UIKit
 
 public struct Alert {
-    public struct Action {
+    public final class Action {
         public typealias Handler = (Alert.Action) -> Void
         
         public enum Style {
@@ -19,11 +19,19 @@ public struct Alert {
         }
         public let title: String
         public let style: Style
+        public var isEnabled: Bool {
+            didSet {
+                actionStateHandler?(isEnabled)
+            }
+        }
         public let handler: Handler?
         
-        public init(title: String, style: Style, handler: Handler? = nil) {
+        var actionStateHandler: ((Bool) -> Void)?
+        
+        public init(title: String, style: Style, isEnabled: Bool = true, handler: Handler? = nil) {
             self.title = title
             self.style = style
+            self.isEnabled = isEnabled
             self.handler = handler
         }
     }
@@ -42,17 +50,21 @@ public struct Alert {
     
     public let tintColor: UIColor?
     
+    public let disabledTintColor: UIColor?
+    
     public let actions: [Action]
     
     public init(title: Text?,
                 message: Text?,
                 contentView: UIView? = nil,
                 tintColor: UIColor? = nil,
+                disabledTintColor: UIColor? = nil,
                 actions: [Action]) {
         self.title = title
         self.message = message
         self.contentView = contentView
         self.tintColor = tintColor
+        self.disabledTintColor = disabledTintColor
         self.actions = actions
     }
     
@@ -62,11 +74,13 @@ public struct Alert {
                 messageFont: UIFont = UIFont.systemFont(ofSize: 13, weight: .regular),
                 contentView: UIView? = nil,
                 tintColor: UIColor? = nil,
+                disabledTintColor: UIColor? = nil,
                 actions: [Action]) {
         self.init(title: title.map { .string($0, titleFont) },
                   message: message.map { .string($0, messageFont) },
                   contentView: contentView,
                   tintColor: tintColor,
+                  disabledTintColor: disabledTintColor,
                   actions: actions)
     }
     
@@ -74,11 +88,13 @@ public struct Alert {
                 message: NSAttributedString?,
                 contentView: UIView? = nil,
                 tintColor: UIColor? = nil,
+                disabledTintColor: UIColor? = nil,
                 actions: [Action]) {
         self.init(title: title.map { .attributedString($0) },
                   message: message.map { .attributedString($0) },
                   contentView: contentView,
                   tintColor: tintColor,
+                  disabledTintColor: disabledTintColor,
                   actions: actions)
     }
 }

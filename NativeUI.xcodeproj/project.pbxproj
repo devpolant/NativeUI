@@ -80,8 +80,8 @@
 				3AB073CE243A017A0092DF66 /* Alert.swift */,
 				3AB073D1243A017A0092DF66 /* AlertViewController.swift */,
 				3AB073D0243A017A0092DF66 /* AlertView.swift */,
-				3AB073CD243A017A0092DF66 /* AlertPresentationAnimator.swift */,
 				3AB073CF243A017A0092DF66 /* AlertActionSequenceView.swift */,
+				3AB073CD243A017A0092DF66 /* AlertPresentationAnimator.swift */,
 			);
 			path = Alert;
 			sourceTree = "<group>";

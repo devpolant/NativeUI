@@ -14,6 +14,7 @@ final class ViewController: UIViewController {
     enum Appearance: Int {
         case `default`  = 0
         case custom     = 1
+        case system     = 2
     }
     
     @IBOutlet private var segmentedControl: UISegmentedControl!
@@ -52,6 +53,20 @@ final class ViewController: UIViewController {
                 actions: [cancelAction, confirmAction]
             )
             let alert = AlertViewController(viewModel: viewModel)
+            present(alert, animated: true)
+            
+        case .system:
+            let cancelAction = UIAlertAction(title: "Cancel", style: .default)
+            let confirmAction = UIAlertAction(title: "Confirm", style: .default)
+            
+            let alert = UIAlertController(
+                title: "Your Title",
+                message: "Your Message",
+                preferredStyle: .alert
+            )
+            alert.addAction(cancelAction)
+            alert.addAction(confirmAction)
+            
             present(alert, animated: true)
         }
     }
