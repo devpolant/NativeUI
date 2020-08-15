@@ -106,15 +106,20 @@ See [Alert.swift](https://github.com/AntonPoltoratskyi/NativeUI/blob/master/Nati
 When you need to present few alerts in a row you should set `shouldDismissAutomatically` flag to `false` and add action AFTER view controller initialization to be able to capture alert instance in action handler's closure.
 
 ```swift
-let cancelAction = Alert.Action(title: "Cancel", style: .primary)
 
 let viewModel = Alert(
     title: "Your Title",
-    message: "Your Message",
-    actions: [cancelAction]
+    message: "Your Message"
 )
 let alert = AlertViewController(viewModel: viewModel)
 alert.shouldDismissAutomatically = false
+
+let cancelAction = Alert.Action(title: "Cancel", style: .primary) { [weak alert] _ in
+    alert?.dismiss(animated: true) {
+        // present something else
+    }
+}
+alert.addAction(cancelAction)
 
 let confirmAction = Alert.Action(title: "Confirm", style: .default) { [weak alert] _ in
     alert?.dismiss(animated: true) {
