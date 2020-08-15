@@ -12,6 +12,8 @@ public final class AlertViewController: UIViewController, AlertViewDelegate {
     
     private let viewModel: Alert
     
+    public var shouldDismissAutomatically: Bool = true
+    
     // MARK: - Subviews
     
     private(set) lazy var alertView: AlertView = {
@@ -98,7 +100,9 @@ extension AlertViewController {
             let action = viewModel.actions[index]
             action.handler?(action)
         }
-        dismiss(animated: true, completion: nil)
+        if shouldDismissAutomatically {
+            dismiss(animated: true, completion: nil)
+        }
     }
 }
 
