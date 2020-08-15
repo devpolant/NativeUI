@@ -101,6 +101,31 @@ present(alert, animated: true)
 
 See [Alert.swift](https://github.com/AntonPoltoratskyi/NativeUI/blob/master/NativeUI/Sources/Alert/Alert.swift) for more details.
 
+### Edge cases
+
+When you need to present few alerts in a row you should set `shouldDismissAutomatically` flag to `false` and add action AFTER view controller initialization to be able to capture alert instance in action handler's closure.
+
+```swift
+let cancelAction = Alert.Action(title: "Cancel", style: .primary)
+
+let viewModel = Alert(
+    title: "Your Title",
+    message: "Your Message",
+    actions: [cancelAction]
+)
+let alert = AlertViewController(viewModel: viewModel)
+alert.shouldDismissAutomatically = false
+
+let confirmAction = Alert.Action(title: "Confirm", style: .default) { [weak alert] _ in
+    alert?.dismiss(animated: true) {
+        // present something else
+    }
+}
+alert.addAction(confirmAction)
+
+present(alert, animated: true)
+```
+
 ## Author
 
 Anton Poltoratskyi
