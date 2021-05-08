@@ -7,6 +7,7 @@
 	objects = {
 
 /* Begin PBXBuildFile section */
+		3A858E2A2646B8B500758898 /* SeparatorView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3A858E292646B8B500758898 /* SeparatorView.swift */; };
 		3AB073C22439FF7F0092DF66 /* NativeUI.h in Headers */ = {isa = PBXBuildFile; fileRef = 3AB073C02439FF7F0092DF66 /* NativeUI.h */; settings = {ATTRIBUTES = (Public, ); }; };
 		3AB073CC243A01140092DF66 /* SelectionFeedbackGenerator.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3AB073CB243A01140092DF66 /* SelectionFeedbackGenerator.swift */; };
 		3AB073D2243A017A0092DF66 /* AlertPresentationAnimator.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3AB073CD243A017A0092DF66 /* AlertPresentationAnimator.swift */; };
@@ -17,6 +18,7 @@
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
+		3A858E292646B8B500758898 /* SeparatorView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SeparatorView.swift; sourceTree = "<group>"; };
 		3AB073BD2439FF7F0092DF66 /* NativeUI.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; includeInIndex = 0; path = NativeUI.framework; sourceTree = BUILT_PRODUCTS_DIR; };
 		3AB073C02439FF7F0092DF66 /* NativeUI.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = NativeUI.h; sourceTree = "<group>"; };
 		3AB073C12439FF7F0092DF66 /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
@@ -90,6 +92,7 @@
 			isa = PBXGroup;
 			children = (
 				3AB073CB243A01140092DF66 /* SelectionFeedbackGenerator.swift */,
+				3A858E292646B8B500758898 /* SeparatorView.swift */,
 			);
 			path = Utils;
 			sourceTree = "<group>";
@@ -177,6 +180,7 @@
 				3AB073D5243A017A0092DF66 /* AlertView.swift in Sources */,
 				3AB073D6243A017A0092DF66 /* AlertViewController.swift in Sources */,
 				3AB073D3243A017A0092DF66 /* Alert.swift in Sources */,
+				3A858E2A2646B8B500758898 /* SeparatorView.swift in Sources */,
 				3AB073CC243A01140092DF66 /* SelectionFeedbackGenerator.swift in Sources */,
 				3AB073D4243A017A0092DF66 /* AlertActionSequenceView.swift in Sources */,
 				3AB073D2243A017A0092DF66 /* AlertPresentationAnimator.swift in Sources */,

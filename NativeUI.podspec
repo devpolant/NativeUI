@@ -1,6 +1,6 @@
 Pod::Spec.new do |s|
   s.name          = "NativeUI"
-  s.version       = "1.2.0"
+  s.version       = "1.2.1"
   s.summary       = "Library that includes customizable replacements for native UIKit components"
 
   s.description   = <<-DESC

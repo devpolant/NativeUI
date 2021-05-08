@@ -56,7 +56,7 @@ final class ViewController: UIViewController {
             present(alert, animated: true)
             
         case .system:
-            let cancelAction = UIAlertAction(title: "Cancel", style: .default)
+            let cancelAction = UIAlertAction(title: "Cancel", style: .cancel)
             let confirmAction = UIAlertAction(title: "Confirm", style: .default)
             
             let alert = UIAlertController(

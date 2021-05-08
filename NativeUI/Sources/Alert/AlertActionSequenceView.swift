@@ -15,8 +15,6 @@ protocol AlertActionSequenceViewDelegate: AnyObject {
 struct AlertActionSequenceViewModel {
     let actions: [Alert.Action]
     let disabledTintColor: UIColor?
-    let separatorColor: UIColor
-    let separatorWidth: CGFloat
 }
 
 final class AlertActionSequenceView: UIControl {
@@ -122,7 +120,7 @@ final class AlertActionSequenceView: UIControl {
         }
         
         for action in viewModel.actions.dropFirst() {
-            let separator = makeButtonSeparatorView(viewModel: viewModel)
+            let separator = makeButtonSeparatorView()
             stackView.addArrangedSubview(separator)
             
             let actionView = makeActionView(for: action, disabledTintColor: viewModel.disabledTintColor)
@@ -167,11 +165,10 @@ final class AlertActionSequenceView: UIControl {
         }
     }
     
-    private func makeButtonSeparatorView(viewModel: AlertActionSequenceViewModel) -> UIView {
-        let separatorView = UIView()
+    private func makeButtonSeparatorView() -> UIView {
+        let separatorView = SeparatorView()
         separatorView.translatesAutoresizingMaskIntoConstraints = false
-        separatorView.backgroundColor = viewModel.separatorColor
-        separatorView.widthAnchor.constraint(equalToConstant: viewModel.separatorWidth).isActive = true
+        separatorView.axis = .vertical
         return separatorView
     }
     
