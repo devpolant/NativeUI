@@ -1,5 +1,5 @@
 [![Swift](https://img.shields.io/badge/Swift-5.0-orange.svg)](https://swift.org)
-[![Xcode](https://img.shields.io/badge/Xcode-11.0-blue.svg)](https://developer.apple.com/xcode)
+[![Xcode](https://img.shields.io/badge/Xcode-12.0-blue.svg)](https://developer.apple.com/xcode)
 [![CocoaPods Compatible](https://img.shields.io/cocoapods/v/NativeUI.svg)](https://cocoapods.org/pods/NativeUI)
 [![MIT](https://img.shields.io/badge/License-MIT-red.svg)](https://opensource.org/licenses/MIT)
 
@@ -16,7 +16,7 @@
 
 ```ruby
 target 'MyApp' do
-  pod 'NativeUI', '~> 1.2'
+  pod 'NativeUI', '~> 1.2.1'
 end
 ```
 
@@ -24,7 +24,7 @@ If you don't need to connect all UI components you may use subspecs like:
 
 ```ruby
 target 'MyApp' do
-  pod 'NativeUI/Alert', '~> 1.2'
+  pod 'NativeUI/Alert', '~> 1.2.1'
 end
 ```
 
