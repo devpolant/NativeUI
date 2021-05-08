@@ -5,9 +5,9 @@
 
 # NativeUI
 
-## Requirements:
+## Minimum Requirements:
 - iOS 9.0
-- Xcode 11.0
+- Xcode 12.0
 - Swift 5
 
 ## Installation
@@ -16,7 +16,7 @@
 
 ```ruby
 target 'MyApp' do
-  pod 'NativeUI', '~> 1.1'
+  pod 'NativeUI', '~> 1.2'
 end
 ```
 
@@ -24,7 +24,7 @@ If you don't need to connect all UI components you may use subspecs like:
 
 ```ruby
 target 'MyApp' do
-  pod 'NativeUI/Alert', '~> 1.1'
+  pod 'NativeUI/Alert', '~> 1.2'
 end
 ```
 
