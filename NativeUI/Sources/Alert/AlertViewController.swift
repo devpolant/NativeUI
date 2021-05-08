@@ -12,9 +12,18 @@ public final class AlertViewController: UIViewController, AlertViewDelegate {
     
     public var shouldDismissAutomatically: Bool = true
     
+    public var shouldDismissOnBackgroundTap: Bool = false
+    
     private var viewModel: Alert
     
     // MARK: - Subviews
+    
+    private lazy var backgroundView: UIView = {
+        let backgroundView = UIView()
+        backgroundView.translatesAutoresizingMaskIntoConstraints = false
+        view.addSubview(backgroundView)
+        return backgroundView
+    }()
     
     private(set) lazy var alertView: AlertView = {
         let alertView = AlertView()
@@ -30,6 +39,7 @@ public final class AlertViewController: UIViewController, AlertViewDelegate {
         super.init(nibName: nil, bundle: nil)
         modalPresentationStyle = .custom
         transitioningDelegate = self
+        shouldDismissOnBackgroundTap = viewModel.actions.isEmpty
     }
     
     required init?(coder: NSCoder) {
@@ -42,6 +52,7 @@ public final class AlertViewController: UIViewController, AlertViewDelegate {
         super.viewDidLoad()
         setupAppearance()
         setupLayout()
+        setupGestures()
         setupViewModel()
     }
     
@@ -54,7 +65,7 @@ public final class AlertViewController: UIViewController, AlertViewDelegate {
     // MARK: - UI Setup
     
     private func setupAppearance() {
-        view.backgroundColor = UIColor.black.withAlphaComponent(0.2)
+        backgroundView.backgroundColor = UIColor.black.withAlphaComponent(0.2)
         
         if let tintColor = viewModel.tintColor {
             view.tintColor = tintColor
@@ -77,6 +88,11 @@ public final class AlertViewController: UIViewController, AlertViewDelegate {
         }
         
         NSLayoutConstraint.activate([
+            backgroundView.topAnchor.constraint(equalTo: view.topAnchor),
+            backgroundView.leadingAnchor.constraint(equalTo: view.leadingAnchor),
+            backgroundView.trailingAnchor.constraint(equalTo: view.trailingAnchor),
+            backgroundView.bottomAnchor.constraint(equalTo: view.bottomAnchor),
+            
             alertView.widthAnchor.constraint(equalToConstant: Layout.width),
             alertView.centerXAnchor.constraint(equalTo: view.centerXAnchor),
             alertView.centerYAnchor.constraint(equalTo: safeAreaLayoutGuide.centerYAnchor),
@@ -84,9 +100,23 @@ public final class AlertViewController: UIViewController, AlertViewDelegate {
         ])
     }
     
+    private func setupGestures() {
+        guard shouldDismissOnBackgroundTap else {
+            return
+        }
+        let recognizer = UITapGestureRecognizer(target: self, action: #selector(actionBackgroundViewTapped(sender:)))
+        backgroundView.addGestureRecognizer(recognizer)
+    }
+    
     private func setupViewModel() {
         alertView.delegate = self
         alertView.setup(viewModel: viewModel)
+    }
+    
+    // MARK: - Actions
+    
+    @objc private func actionBackgroundViewTapped(sender: UIGestureRecognizer) {
+        dismiss(animated: true, completion: nil)
     }
     
     // MARK: - Layout

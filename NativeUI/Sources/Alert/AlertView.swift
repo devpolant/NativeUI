@@ -22,6 +22,8 @@ final class AlertView: UIView {
     
     // MARK: - Subviews
     
+    // MARK: Blur
+    
     private lazy var blurView: UIVisualEffectView = {
         let blurEffect = UIBlurEffect(style: .extraLight)
         
@@ -32,6 +34,8 @@ final class AlertView: UIView {
         return effectView
     }()
     
+    // MARK: Content
+    
     private lazy var contentContainerView: UIView = {
         let containerView = UIView()
         containerView.translatesAutoresizingMaskIntoConstraints = false
@@ -39,7 +43,7 @@ final class AlertView: UIView {
         return containerView
     }()
     
-    private lazy var verticalStackView: UIStackView = {
+    private lazy var contentStackView: UIStackView = {
         let stackView = UIStackView()
         stackView.translatesAutoresizingMaskIntoConstraints = false
         contentContainerView.addSubview(stackView)
@@ -66,19 +70,26 @@ final class AlertView: UIView {
         return contentView
     }()
     
+    // MARK: Actions
+    
+    private lazy var actionsStackView: UIStackView = {
+        let stackView = UIStackView()
+        stackView.translatesAutoresizingMaskIntoConstraints = false
+        blurView.contentView.addSubview(stackView)
+        return stackView
+    }()
+    
     private lazy var contentSeparatorView: UIView = {
         let separatorView = UIView()
         separatorView.backgroundColor = separatorColor
         separatorView.translatesAutoresizingMaskIntoConstraints = false
-        blurView.contentView.addSubview(separatorView)
         return separatorView
     }()
     
-    private lazy var actionsContainerView: AlertActionSequenceView = {
-        let containerView = AlertActionSequenceView()
-        containerView.translatesAutoresizingMaskIntoConstraints = false
-        blurView.contentView.addSubview(containerView)
-        return containerView
+    private lazy var actionSequenceView: AlertActionSequenceView = {
+        let sequenceView = AlertActionSequenceView()
+        sequenceView.translatesAutoresizingMaskIntoConstraints = false
+        return sequenceView
     }()
     
     // MARK: - Init
@@ -111,35 +122,38 @@ final class AlertView: UIView {
             contentContainerView.leadingAnchor.constraint(equalTo: blurView.contentView.leadingAnchor),
             contentContainerView.trailingAnchor.constraint(equalTo: blurView.contentView.trailingAnchor),
             
-            verticalStackView.topAnchor.constraint(equalTo: contentContainerView.topAnchor, constant: Layout.Content.top),
-            verticalStackView.leadingAnchor.constraint(equalTo: contentContainerView.leadingAnchor, constant: Layout.Content.horizontal),
-            verticalStackView.trailingAnchor.constraint(equalTo: contentContainerView.trailingAnchor, constant: -Layout.Content.horizontal),
-            verticalStackView.bottomAnchor.constraint(equalTo: contentContainerView.bottomAnchor, constant: -Layout.Content.bottom),
+            contentStackView.topAnchor.constraint(equalTo: contentContainerView.topAnchor, constant: Layout.Content.top),
+            contentStackView.leadingAnchor.constraint(equalTo: contentContainerView.leadingAnchor, constant: Layout.Content.horizontal),
+            contentStackView.trailingAnchor.constraint(equalTo: contentContainerView.trailingAnchor, constant: -Layout.Content.horizontal),
+            contentStackView.bottomAnchor.constraint(equalTo: contentContainerView.bottomAnchor, constant: -Layout.Content.bottom),
             
-            contentSeparatorView.topAnchor.constraint(equalTo: contentContainerView.bottomAnchor),
-            contentSeparatorView.leadingAnchor.constraint(equalTo: blurView.contentView.leadingAnchor),
-            contentSeparatorView.trailingAnchor.constraint(equalTo: blurView.contentView.trailingAnchor),
-            contentSeparatorView.heightAnchor.constraint(equalToConstant: Layout.separatorThickness),
-            
-            actionsContainerView.topAnchor.constraint(equalTo: contentSeparatorView.bottomAnchor),
-            actionsContainerView.leadingAnchor.constraint(equalTo: blurView.contentView.leadingAnchor),
-            actionsContainerView.trailingAnchor.constraint(equalTo: blurView.contentView.trailingAnchor),
-            actionsContainerView.bottomAnchor.constraint(equalTo: blurView.contentView.bottomAnchor),
-            actionsContainerView.heightAnchor.constraint(equalToConstant: Layout.Button.height)
+            actionsStackView.topAnchor.constraint(equalTo: contentContainerView.bottomAnchor),
+            actionsStackView.leadingAnchor.constraint(equalTo: blurView.contentView.leadingAnchor),
+            actionsStackView.trailingAnchor.constraint(equalTo: blurView.contentView.trailingAnchor),
+            actionsStackView.bottomAnchor.constraint(equalTo: blurView.contentView.bottomAnchor)
         ])
         
-        verticalStackView.axis = .vertical
-        verticalStackView.spacing = Layout.Content.verticalSpacing
-        verticalStackView.addArrangedSubview(titleLabel)
-        verticalStackView.addArrangedSubview(messageLabel)
-        verticalStackView.addArrangedSubview(customContentView)
+        contentStackView.axis = .vertical
+        contentStackView.spacing = Layout.Content.verticalSpacing
+        contentStackView.addArrangedSubview(titleLabel)
+        contentStackView.addArrangedSubview(messageLabel)
+        contentStackView.addArrangedSubview(customContentView)
         
-        titleLabel.setContentHuggingPriority(.required, for: .vertical)
-        titleLabel.setContentCompressionResistancePriority(.required, for: .vertical)
-        messageLabel.setContentHuggingPriority(.required, for: .vertical)
-        messageLabel.setContentCompressionResistancePriority(.required, for: .vertical)
+        actionsStackView.axis = .vertical
+        actionsStackView.spacing = 0
+        actionsStackView.addArrangedSubview(contentSeparatorView)
+        actionsStackView.addArrangedSubview(actionSequenceView)
         
-        actionsContainerView.delegate = self
+        NSLayoutConstraint.activate([
+            contentSeparatorView.heightAnchor.constraint(equalToConstant: Layout.separatorThickness)
+        ])
+        
+        [titleLabel, messageLabel].forEach {
+            $0.setContentHuggingPriority(.required, for: .vertical)
+            $0.setContentCompressionResistancePriority(.required, for: .vertical)
+        }
+        
+        actionSequenceView.delegate = self
     }
     
     private func setupAppearance() {
@@ -191,13 +205,17 @@ final class AlertView: UIView {
         }
         customContentView.isHidden = viewModel.contentView == nil
         
-        let actionsViewModel = AlertActionSequenceViewModel(
-            actions: viewModel.actions,
-            disabledTintColor: viewModel.disabledTintColor,
-            separatorColor: separatorColor,
-            separatorWidth: Layout.separatorThickness
-        )
-        actionsContainerView.setup(viewModel: actionsViewModel)
+        if !viewModel.actions.isEmpty {
+            let actionsViewModel = AlertActionSequenceViewModel(
+                actions: viewModel.actions,
+                disabledTintColor: viewModel.disabledTintColor,
+                separatorColor: separatorColor,
+                separatorWidth: Layout.separatorThickness
+            )
+            actionSequenceView.setup(viewModel: actionsViewModel)
+        }
+        contentSeparatorView.isHidden = viewModel.actions.isEmpty
+        actionSequenceView.isHidden = viewModel.actions.isEmpty
     }
     
     // MARK: - Layout
@@ -213,10 +231,6 @@ final class AlertView: UIView {
             static let bottom: CGFloat = 20
             static let horizontal: CGFloat = 16
             static let verticalSpacing: CGFloat = 4
-        }
-        
-        enum Button {
-            static let height: CGFloat = 44
         }
     }
 }

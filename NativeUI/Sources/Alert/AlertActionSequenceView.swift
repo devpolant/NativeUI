@@ -25,6 +25,13 @@ final class AlertActionSequenceView: UIControl {
     
     private let selectionFeedbackGenerator = SelectionFeedbackGenerator()
     
+    override var intrinsicContentSize: CGSize {
+        return CGSize(
+            width: UIView.noIntrinsicMetric,
+            height: 44
+        )
+    }
+    
     // MARK: - Subviews
     
     private final class ActionView: UIView {
@@ -97,6 +104,9 @@ final class AlertActionSequenceView: UIControl {
             stackView.trailingAnchor.constraint(equalTo: trailingAnchor),
             stackView.bottomAnchor.constraint(equalTo: bottomAnchor)
         ])
+        
+        setContentHuggingPriority(.required, for: .vertical)
+        setContentCompressionResistancePriority(.required, for: .vertical)
     }
     
     // MARK: - Setup
