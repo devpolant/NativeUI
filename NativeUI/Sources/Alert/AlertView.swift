@@ -18,14 +18,18 @@ final class AlertView: UIView {
     
     weak var delegate: AlertViewDelegate?
     
-    private let separatorColor: UIColor = UIColor.lightGray
-    
     // MARK: - Subviews
     
     // MARK: Blur
     
     private lazy var blurView: UIVisualEffectView = {
-        let blurEffect = UIBlurEffect(style: .extraLight)
+        let blurStyle: UIBlurEffect.Style
+        if #available(iOS 13, *) {
+            blurStyle = .systemMaterial
+        } else {
+            blurStyle = .extraLight
+        }
+        let blurEffect = UIBlurEffect(style: blurStyle)
         
         let effectView = UIVisualEffectView(effect: blurEffect)
         effectView.translatesAutoresizingMaskIntoConstraints = false
@@ -80,9 +84,9 @@ final class AlertView: UIView {
     }()
     
     private lazy var contentSeparatorView: UIView = {
-        let separatorView = UIView()
-        separatorView.backgroundColor = separatorColor
+        let separatorView = SeparatorView()
         separatorView.translatesAutoresizingMaskIntoConstraints = false
+        separatorView.axis = .horizontal
         return separatorView
     }()
     
@@ -144,10 +148,6 @@ final class AlertView: UIView {
         actionsStackView.addArrangedSubview(contentSeparatorView)
         actionsStackView.addArrangedSubview(actionSequenceView)
         
-        NSLayoutConstraint.activate([
-            contentSeparatorView.heightAnchor.constraint(equalToConstant: Layout.separatorThickness)
-        ])
-        
         [titleLabel, messageLabel].forEach {
             $0.setContentHuggingPriority(.required, for: .vertical)
             $0.setContentCompressionResistancePriority(.required, for: .vertical)
@@ -208,9 +208,7 @@ final class AlertView: UIView {
         if !viewModel.actions.isEmpty {
             let actionsViewModel = AlertActionSequenceViewModel(
                 actions: viewModel.actions,
-                disabledTintColor: viewModel.disabledTintColor,
-                separatorColor: separatorColor,
-                separatorWidth: Layout.separatorThickness
+                disabledTintColor: viewModel.disabledTintColor
             )
             actionSequenceView.setup(viewModel: actionsViewModel)
         }
@@ -221,10 +219,6 @@ final class AlertView: UIView {
     // MARK: - Layout
     
     private enum Layout {
-        
-        static var separatorThickness: CGFloat {
-            return 1.0 / UIScreen.main.scale
-        }
         
         enum Content {
             static let top: CGFloat = 20
