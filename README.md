@@ -99,7 +99,7 @@ let alert = AlertViewController(viewModel: viewModel)
 present(alert, animated: true)
 ```
 
-See [Alert.swift](https://github.com/AntonPoltoratskyi/NativeUI/blob/master/NativeUI/Sources/Alert/Alert.swift) for more details.
+See [Alert.swift](https://github.com/devpolant/NativeUI/blob/master/NativeUI/Sources/Alert/Alert.swift) for more details.
 
 ### Edge cases
 
@@ -137,4 +137,4 @@ Anton Poltoratskyi
 
 ## License
 
-NativeUI is available under the MIT license. See the [LICENSE](https://github.com/AntonPoltoratskyi/NativeUI/blob/master/LICENSE) file for more info.
+NativeUI is available under the MIT license. See the [LICENSE](https://github.com/devpolant/NativeUI/blob/master/LICENSE) file for more info.
