@@ -1,22 +1,30 @@
-[![Swift](https://img.shields.io/badge/Swift-5.0-orange.svg)](https://swift.org)
-[![Xcode](https://img.shields.io/badge/Xcode-12.0-blue.svg)](https://developer.apple.com/xcode)
+[![Swift](https://img.shields.io/badge/Swift-5.7-orange.svg)](https://swift.org)
+[![Xcode](https://img.shields.io/badge/Xcode-14.0-blue.svg)](https://developer.apple.com/xcode)
 [![CocoaPods Compatible](https://img.shields.io/cocoapods/v/NativeUI.svg)](https://cocoapods.org/pods/NativeUI)
 [![MIT](https://img.shields.io/badge/License-MIT-red.svg)](https://opensource.org/licenses/MIT)
 
 # NativeUI
 
 ## Minimum Requirements:
-- iOS 9.0
-- Xcode 12.0
+- iOS 11.0
+- Xcode 14.0
 - Swift 5
 
 ## Installation
+
+### Swift Package Manager
+
+```swift
+dependencies: [
+    .package(url: "https://github.com/devpolant/NativeUI.git", .upToNextMajor(from: "1.2.2"))
+]
+```
 
 #### CocoaPods
 
 ```ruby
 target 'MyApp' do
-  pod 'NativeUI', '~> 1.2.1'
+  pod 'NativeUI', '~> 1.2.2'
 end
 ```
 
@@ -24,7 +32,7 @@ If you don't need to connect all UI components you may use subspecs like:
 
 ```ruby
 target 'MyApp' do
-  pod 'NativeUI/Alert', '~> 1.2.1'
+  pod 'NativeUI/Alert', '~> 1.2.2'
 end
 ```
 
@@ -34,7 +42,7 @@ Available subspecs:
 
 ## Alert
 
-<img src="https://github.com/AntonPoltoratskyi/NativeUI/blob/master/Example/Demo/default.gif" width="250" /> <img src="https://github.com/AntonPoltoratskyi/NativeUI/blob/master/Example/Demo/custom.gif" width="250" />
+<img src="https://github.com/devpolant/NativeUI/blob/master/Example/Demo/default.gif" width="250" /> <img src="https://github.com/devpolant/NativeUI/blob/master/Example/Demo/custom.gif" width="250" />
 
 **`AlertViewController` is a customizable replacement for native `UIAlertController`.**
 
