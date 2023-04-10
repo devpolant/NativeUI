@@ -1,6 +1,6 @@
 Pod::Spec.new do |s|
   s.name          = "NativeUI"
-  s.version       = "1.2.1"
+  s.version       = "1.2.2"
   s.summary       = "Library that includes customizable replacements for native UIKit components"
 
   s.description   = <<-DESC
@@ -10,19 +10,19 @@ Pod::Spec.new do |s|
                       but customizable and were implemented from scratch.
                       DESC
 
-  s.homepage      = "https://github.com/AntonPoltoratskyi/NativeUI"
+  s.homepage      = "https://github.com/devpolant/NativeUI"
   s.license       = { :type => "MIT", :file => "LICENSE" }
   s.author        = "Anton Poltoratskyi"
 
-  s.platform      = :ios, "9.0"
+  s.platform      = :ios, "11.0"
+  
+  s.swift_version = "5.0"
 
-  s.source        = { :git => "https://github.com/AntonPoltoratskyi/NativeUI.git", :tag => "#{s.version}" }
+  s.source        = { :git => "https://github.com/devpolant/NativeUI.git", :tag => "#{s.version}" }
   
   s.frameworks    = "Foundation", "UIKit"
 
   s.requires_arc  = true
-
-  s.swift_version = "5.0"
 
   s.default_subspec   = 'Core'
 
